@@ -1,11 +1,23 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const StyledCountry = styled.div`
+const StyledCountry = styled(Link)`
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   background-color: #fff;
+  min-height: 300px;
+  max-height: 400px;
+  max-width: 400px;
+  text-decoration: none;
+  color: inherit;
+
+  &:visited,
+  :active,
+  :link {
+    color: inherit;
+  }
 `;
 
 const CountryDetails = styled.div`
@@ -18,7 +30,7 @@ const CountryDetails = styled.div`
 const CountryImage = styled.img`
   display: block;
   max-width: 100%;
-  height: 175px;
+  height: 100%;
   object-fit: cover;
   object-position: center top;
   overflow: hidden;
@@ -43,7 +55,7 @@ const CountryValue = styled.span`
 
 function country({ country }) {
   return (
-    <StyledCountry>
+    <StyledCountry to={`/country/${country.name.common}`}>
       <CountryImage alt={`${country.flags.alt}`} src={`${country.flags.svg}`} />
       <CountryName>{country.name.common}</CountryName>
       <CountryDetails>

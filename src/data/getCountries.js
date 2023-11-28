@@ -1,10 +1,16 @@
-async function getCountries() {
+async function getCountries(searchOption = "all", searchQuery = "") {
+  let FETCH_URL = `https://restcountries.com/v3.1/`;
   try {
-    const res = await fetch(`https://restcountries.com/v3.1/region/europe`);
+    if (searchOption === "all") FETCH_URL += "all";
+    if (searchOption === "region")
+      FETCH_URL += `${searchOption}/${searchQuery}`;
+    if (searchOption === "name") FETCH_URL += `${searchOption}/${searchQuery}`;
+    const res = await fetch(`${FETCH_URL}`);
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }
     const data = await res.json();
+    console.log(FETCH_URL);
     return data;
   } catch (error) {
     console.error(error.message);
@@ -13,3 +19,6 @@ async function getCountries() {
 }
 
 export default getCountries;
+
+// https://restcountries.com/v3.1/name/{name}
+// https://restcountries.com/v3.1/region/{region}

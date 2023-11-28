@@ -20,19 +20,21 @@ const StyledCountries = styled.ul`
   width: 100%;
   max-width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   justify-content: center;
   gap: 2rem;
   row-gap: 3rem;
 `;
 
-function Countries() {
-  const queryClient = useQueryClient();
-  const { isError, data, isLoading, error, refetch } = useQuery(
-    "countries",
-    getCountries
-  );
-  console.log(data);
+function Countries({ searchByRegion, searchByInput, queryOption }) {
+  console.log(searchByRegion, searchByInput, queryOption);
+  const searchQuery =
+    queryOption === "name" ? searchByInput : searchByRegion || "";
+
+  const { isLoading, data, isError, error } = useQuery({
+    queryKey: ["countries", queryOption, searchQuery],
+    queryFn: () => getCountries(queryOption, searchQuery),
+  });
 
   return (
     <MainContent>
@@ -42,7 +44,7 @@ function Countries() {
           {data &&
             data
               .map((country) => (
-                <Country key={country.capital} country={country} />
+                <Country key={country.cca2} country={country} />
               ))
               .splice(0, 20)}
         </StyledCountries>
