@@ -2,7 +2,9 @@
 
 :root {
   --light-mode-text: hsl(200, 15%, 8%);
-  --light-mode-bg: hsl(0, 0%, 98%);
+  --light-mode-bg: hsl(0, 0%, 95%);
+  --dark-mode-bg: hsl(207, 26%, 17%);
+  --dark-mode-elements: hsl(209, 23%, 22%);
 }
 
 * {

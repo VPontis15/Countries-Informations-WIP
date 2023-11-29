@@ -30,12 +30,15 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-function Header() {
+function Header({ isLightMode, handleLightMode }) {
+  console.log(isLightMode);
   return (
     <StyledHeader>
       <Container>
         <HeaderTitle>Where in the World</HeaderTitle>
-        <ButtonMode> Dark Mode</ButtonMode>
+        <ButtonMode onClick={handleLightMode}>
+          {isLightMode ? "DarkMode" : "LightMode"}{" "}
+        </ButtonMode>
       </Container>
     </StyledHeader>
   );

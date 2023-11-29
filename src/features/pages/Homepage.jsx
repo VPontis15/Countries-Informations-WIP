@@ -3,10 +3,14 @@ import Input from "../../ui/Input";
 import Countries from "../main/countries";
 import { useNavigate } from "react-router-dom";
 
-function Homepage() {
+function Homepage({
+  queryOption,
+  setQueryOption,
+  isLightMode,
+  handleLightMode,
+}) {
   const [searchByRegion, setSearchByRegion] = useState("");
   const [searchByInput, setSearchByInput] = useState("");
-  const [queryOption, setQueryOption] = useState("all");
 
   const handleSearchByRegion = (e) => {
     setQueryOption("region");

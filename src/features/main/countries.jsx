@@ -1,7 +1,8 @@
 import { useQuery, useQueryClient } from "react-query";
 import getCountries from "../../data/getCountries";
-import Country from "./Country";
+import CountryItem from "./CountryItem";
 import styled from "styled-components";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 const MainContent = styled.main`
   margin-block: 5rem;
@@ -26,8 +27,7 @@ const StyledCountries = styled.ul`
   row-gap: 3rem;
 `;
 
-function Countries({ searchByRegion, searchByInput, queryOption }) {
-  console.log(searchByRegion, searchByInput, queryOption);
+function Countries({ searchByRegion, searchByInput, queryOption = "all" }) {
   const searchQuery =
     queryOption === "name" ? searchByInput : searchByRegion || "";
 
@@ -38,13 +38,12 @@ function Countries({ searchByRegion, searchByInput, queryOption }) {
 
   return (
     <MainContent>
-      {isLoading && <p>Loading...</p>}
       <Container>
         <StyledCountries>
           {data &&
             data
               .map((country) => (
-                <Country key={country.cca2} country={country} />
+                <CountryItem key={country.cca2} country={country} />
               ))
               .splice(0, 20)}
         </StyledCountries>

@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useLightMode } from "../layout/Layout";
 
 const StyledCountry = styled(Link)`
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  background-color: #fff;
+  background-color: ${(props) =>
+    props.isLightMode ? "white" : "var(--dark-mode-elements)"}
   min-height: 300px;
   max-height: 400px;
   max-width: 400px;
@@ -53,9 +55,10 @@ const CountryValue = styled.span`
   font-weight: 300;
 `;
 
-function country({ country }) {
+function CountryItem({ country }) {
+  const { isLightMode } = useLightMode();
   return (
-    <StyledCountry to={`/country/${country.name.common}`}>
+    <StyledCountry to={`/country/${country.cca3}`}>
       <CountryImage alt={`${country.flags.alt}`} src={`${country.flags.svg}`} />
       <CountryName>{country.name.common}</CountryName>
       <CountryDetails>
@@ -73,4 +76,4 @@ function country({ country }) {
   );
 }
 
-export default country;
+export default CountryItem;
