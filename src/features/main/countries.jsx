@@ -23,8 +23,9 @@ const StyledCountries = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   justify-content: center;
-  gap: 2rem;
-  row-gap: 3rem;
+  align-items: center;
+  gap: 4rem;
+  row-gap: 4rem;
 `;
 
 function Countries({ searchByRegion, searchByInput, queryOption = "all" }) {
@@ -41,11 +42,9 @@ function Countries({ searchByRegion, searchByInput, queryOption = "all" }) {
       <Container>
         <StyledCountries>
           {data &&
-            data
-              .map((country) => (
-                <CountryItem key={country.cca2} country={country} />
-              ))
-              .splice(0, 20)}
+            data.map((country) => (
+              <CountryItem key={country.cca2} country={country} />
+            ))}
         </StyledCountries>
       </Container>
     </MainContent>
