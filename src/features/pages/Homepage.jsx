@@ -15,13 +15,15 @@ function Homepage({
   const handleSearchByRegion = (e) => {
     setQueryOption("region");
     setSearchByRegion(e.target.value);
-    setSearchByInput("");
   };
   const handleSearchByInput = (e) => {
     setQueryOption("name");
     setSearchByInput(e.target.value);
-    setSearchByRegion("all");
   };
+
+  if (!searchByInput && searchByRegion) {
+    setQueryOption("region");
+  } else if (searchByInput && !searchByRegion) setQueryOption("name");
 
   return (
     <>

@@ -6,6 +6,7 @@ import CountryItem from "../main/CountryItem";
 import LoadingScreen from "../../ui/LoadingScreen";
 import Map from "../../ui/Map";
 import { useLightMode } from "../layout/Layout";
+import ErrorMessage from "../../ui/ErrorMessage";
 
 const Container = styled.div`
   width: 100%;
@@ -134,6 +135,7 @@ const CountryName = styled.span`
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.75em;
+  font-weight: bold;
   @media screen and (max-width: 700px) {
     text-align: left;
   }
@@ -142,6 +144,7 @@ const CountryName = styled.span`
 const CountryInformation = styled.p`
   display: inline-flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
 `;
 
 const BorderCountriesDiv = styled.div`
@@ -218,96 +221,99 @@ function Country({ queryOption, setQueryOption }) {
       </Container>
 
       <Container>
-        {data ? (
-          data.map((country) => {
-            const [lat, lng] = country.latlng;
-            return (
-              <>
-                <CountryGrid key={country.flag.svg}>
-                  <CountryImage
-                    src={country.flags.svg}
-                    alt={country.flags.alt}
-                  />
-                  <CountryInformationsContainer>
-                    <CountryInformations>
-                      <CountryName>{country.name.common}</CountryName>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
+        {data
+          ? data.map((country) => {
+              const [lat, lng] = country.latlng;
+              return (
+                <>
+                  <CountryGrid key={country.flag.svg}>
+                    <CountryImage
+                      src={country.flags.svg}
+                      alt={country.flags.alt}
+                    />
+                    <CountryInformationsContainer>
+                      <CountryInformations>
+                        <CountryName>{country.name.common}</CountryName>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
 
-                          gap: "1rem",
-                        }}
-                      >
-                        <CountryInformation>
-                          <span>Population:</span>
-                          {country.population}
-                        </CountryInformation>
-                        <CountryInformation>
-                          <span>Region:</span>
-                          {country.region}
-                        </CountryInformation>
-                        <CountryInformation>
-                          <span>Sub Region:</span>
-                          {country.subregion}
-                        </CountryInformation>
-                        <CountryInformation>
-                          <span>Capital:</span>
-                          {country.capital}
-                        </CountryInformation>
-                      </div>
-                    </CountryInformations>
+                            gap: "1rem",
+                          }}
+                        >
+                          <CountryInformation>
+                            <span>Population:</span>
+                            {country.population}
+                          </CountryInformation>
+                          <CountryInformation>
+                            <span>Region:</span>
+                            {country.region}
+                          </CountryInformation>
+                          <CountryInformation>
+                            <span>Sub Region:</span>
+                            {country.subregion}
+                          </CountryInformation>
+                          <CountryInformation>
+                            <span>Capital:</span>
+                            {country.capital}
+                          </CountryInformation>
+                        </div>
+                      </CountryInformations>
 
-                    <CountryInformations2>
-                      <div></div>
-                      <CountryInformation>
-                        <span>Currencies:</span>
-                        {Object.values(country.currencies).map(
-                          (value, index) => (
-                            <span key={index}>
-                              {value.name}
-                              {value.symbol}
-                            </span>
-                          )
-                        )}
-                      </CountryInformation>
-                      <CountryInformation>
-                        <span>Languages:</span>
-                        {Object.values(country.languages).map(
-                          (language, index) => {
-                            return <span key={index}>{language}</span>;
-                          }
-                        )}
-                      </CountryInformation>
-                    </CountryInformations2>
-                  </CountryInformationsContainer>
-                  <BorderCountriesDiv>
-                    {country.borders && (
-                      <BorderTitle>Border Countries:</BorderTitle>
-                    )}
-                    <BorderCountries>
-                      {country.borders &&
-                        country.borders?.map((borderCountry, index) => (
-                          <BorderCountry
-                            isLightMode={isLightMode}
-                            onClick={() => setQueryOption("code")}
-                            to={`/country/${borderCountry}`}
-                            key={index}
-                          >
-                            {borderCountry}
-                          </BorderCountry>
-                        ))}
-                    </BorderCountries>
-                  </BorderCountriesDiv>{" "}
-                </CountryGrid>
-                <Map popup={country.name.common} position={[lat, lng]} />
-              </>
-            );
-          })
-        ) : (
-          <p>There was an error fetching the country</p>
-        )}{" "}
+                      <CountryInformations2>
+                        <div></div>
+                        <CountryInformation>
+                          <span>Currencies:</span>
+                          {Object.values(country.currencies).map(
+                            (value, index) => (
+                              <span key={index}>
+                                {value.name}
+                                {value.symbol}
+                              </span>
+                            )
+                          )}
+                        </CountryInformation>
+                        <CountryInformation>
+                          <span>Languages:</span>
+                          {Object.values(country.languages).map(
+                            (language, index) => {
+                              return <span key={index}>{language}</span>;
+                            }
+                          )}
+                        </CountryInformation>
+                      </CountryInformations2>
+                    </CountryInformationsContainer>
+                    <BorderCountriesDiv>
+                      {country.borders && (
+                        <BorderTitle>Border Countries:</BorderTitle>
+                      )}
+                      <BorderCountries>
+                        {country.borders &&
+                          country.borders?.map((borderCountry, index) => (
+                            <BorderCountry
+                              isLightMode={isLightMode}
+                              onClick={() => setQueryOption("code")}
+                              to={`/country/${borderCountry}`}
+                              key={index}
+                            >
+                              {borderCountry}
+                            </BorderCountry>
+                          ))}
+                      </BorderCountries>
+                    </BorderCountriesDiv>{" "}
+                  </CountryGrid>
+                  <Map popup={country.name.common} position={[lat, lng]} />
+                </>
+              );
+            })
+          : (error && <LoadingScreen />) ||
+            (isError && (
+              <ErrorMessage>
+                There was an error fetching the country
+              </ErrorMessage>
+            ))}{" "}
       </Container>
     </>
   );

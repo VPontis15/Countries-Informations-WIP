@@ -13,13 +13,8 @@ const StyledErrorMessage = styled.p`
   width: 80%;
 `;
 
-function ErrorMessage() {
-  return (
-    <StyledErrorMessage>
-      There was an error while fetching the data.Please check your internet
-      connection.
-    </StyledErrorMessage>
-  );
+function ErrorMessage({ children }) {
+  return <StyledErrorMessage>{children}</StyledErrorMessage>;
 }
 
 export default ErrorMessage;

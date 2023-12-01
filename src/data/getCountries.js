@@ -15,7 +15,7 @@ async function getCountries(searchOption = "all", searchQuery = "") {
     return data;
   } catch (error) {
     console.error(error.message);
-    return null;
+    throw error;
   }
 }
 

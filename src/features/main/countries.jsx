@@ -31,29 +31,35 @@ const StyledCountries = styled.ul`
 
 function Countries({ searchByRegion, searchByInput, queryOption = "all" }) {
   const searchQuery =
-    queryOption === "name" ? searchByInput : searchByRegion || "";
+    queryOption === "name" ? searchByInput : searchByRegion || "all";
 
   const {
     isLoading,
     data: countries,
     isError,
+
     error,
   } = useQuery({
     queryKey: ["countries", queryOption, searchQuery],
     queryFn: () => getCountries(queryOption, searchQuery),
+    onError: (error) => console.error("error is", error),
   });
 
   return (
     <MainContent>
       <Container>
         <StyledCountries>
-          {countries ? (
-            countries.map((country) => (
-              <CountryItem key={country.cca2} country={country} />
-            ))
-          ) : (
-            <ErrorMessage />
-          )}
+          {countries
+            ? countries.map((country) => (
+                <CountryItem key={country.cca2} country={country} />
+              ))
+            : (error && <LoadingScreen />) ||
+              (isError && (
+                <ErrorMessage>
+                  Error while fetching the countries.Please check your internet
+                  connection.
+                </ErrorMessage>
+              ))}
         </StyledCountries>
       </Container>
     </MainContent>
