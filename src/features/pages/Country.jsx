@@ -4,113 +4,117 @@ import styled from "styled-components";
 import getCountries from "../../data/getCountries";
 import CountryItem from "../main/CountryItem";
 import LoadingScreen from "../../ui/LoadingScreen";
-
-const StyledCountry = styled.div`
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  background-color: #fff;
-  min-height: 300px;
-  max-height: 400px;
-  max-width: 400px;
-  text-decoration: none;
-  color: inherit;
-
-  &:visited,
-  :active,
-  :link {
-    color: inherit;
-  }
-`;
+import Map from "../../ui/Map";
+import { useLightMode } from "../layout/Layout";
 
 const Container = styled.div`
   width: 100%;
   max-width: min(95%, 1440px);
   display: flex;
+  flex-direction: ${(props) => props.direction || "column"};
   margin-top: 2.25em;
   margin-inline: auto;
-  padding-inline: 1em;
-  justify-content: space-between;
+
+  justify-content: ${(props) => props.justify || "center"};
+
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+    gap: 2em;
+
+    /* align-items: center; */
+  }
 `;
 
 const CountryGrid = styled.section`
   display: grid;
   padding-block: 5em;
-  grid-template-columns: 700px 1fr 1fr;
-  justify-content: space-between;
-  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 3;
+  flex-direction: column;
+  gap: 3em;
+
   width: 100%;
-  gap: 2rem;
-  grid-template-areas:
-    "image details details2 "
-    "image details details2 ";
+
+  @media screen and (max-width: 1200px) {
+    gap: 6em;
+  }
+  @media screen and (max-width: 950px) {
+    gap: 3em;
+  }
 `;
 
 const CountryImage = styled.img`
   display: block;
-  max-width: 100%;
-  width: 600px;
-
-  height: 100%;
+  max-width: 650px;
+  width: 100%;
+  grid-row: 1/3;
+  grid-column: 1;
   object-fit: cover;
   object-position: center top;
   overflow: hidden;
-
-  grid-area: image;
+  @media screen and (max-width: 1200px) {
+    grid-column: 1/3;
+    grid-row: 1/3;
+    margin-inline: auto;
+  }
+  @media screen and (max-width: 700px) {
+    grid-column: 1/3;
+    grid-row: 1/3;
+    margin-inline: auto;
+  }
 `;
 
-const BorderCountriesDiv = styled.div`
+const CountryInformationsContainer = styled.div`
   display: flex;
-  gap: 1.5rem;
-  width: 500px;
-  /* position: absolute; */
+  gap: 3em;
+  justify-content: start;
   align-items: center;
-  bottom: 10px;
-  left: -98px;
-`;
-const BorderCountries = styled.div`
-  gap: 1rem;
-  grid-area: border;
-  margin-left: auto;
-  width: 1000px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-`;
+  grid-row: 1/2;
+  grid-column: 2;
+  @media screen and (max-width: 1200px) {
+    display: block;
+    justify-content: center;
+    align-items: center;
 
-const BorderCountry = styled(Link)`
-  border: 1px solid
-    ${(props) =>
-      !props.isLightMode ? "var(--light-mode-bg)" : "var(--dark-mode-bg)"};
-  display: inline-block;
-  padding: 0.25em 1em;
-  text-decoration: none;
-  color: inherit;
-`;
+    grid-column: 3;
+    gap: 0;
+  }
+  @media screen and (max-width: 950px) {
+    flex-direction: column;
+    grid-column: 1/3;
+    grid-row: 3;
+    flex-direction: row;
+    gap: 4em;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 0.5em;
+  }
+  @media screen and (max-width: 570px) {
+    display: block;
+    grid-column: 1/3;
 
-const BorderTitle = styled.span`
-  width: 100%;
-  display: block;
-  margin-left: auto;
-  text-align: right;
+    margin-inline: auto;
+    padding-left: 1.25em;
+    gap: 0.25em;
+  }
 `;
 
 const CountryInformations = styled.article`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: 80%;
   justify-content: center;
-  grid-area: details;
+
+  @media screen and (max-width: 700px) {
+    justify-content: start;
+  }
 `;
 const CountryInformations2 = styled.article`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: 80%;
+
   justify-content: center;
-  grid-area: details2;
 `;
 
 const BackButton = styled.button`
@@ -118,23 +122,74 @@ const BackButton = styled.button`
   border: 1px solid #e3e3e3;
   padding: 1em 2.25em;
   cursor: pointer;
+  min-width: 125px;
+  @media screen and (max-width: 700px) {
+    width: 50%;
+    max-width: 100%;
+  }
 `;
 
 const CountryName = styled.span`
   font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 0.75em;
+  @media screen and (max-width: 700px) {
+    text-align: left;
+  }
 `;
 
-const CountryLabel = styled.p`
-  font-weight: 800;
+const CountryInformation = styled.p`
+  display: inline-flex;
+  gap: 0.5rem;
 `;
 
-const CountryValue = styled.span`
-  font-weight: 300;
+const BorderCountriesDiv = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  flex: 1;
+  grid-row: 2/3;
+  align-items: center;
+
+  @media screen and (max-width: 1200px) {
+    grid-row: 2;
+    grid-column: 1/-1;
+    flex-direction: column;
+    gap: 1em;
+  }
+  @media screen and (max-width: 950px) {
+    flex-direction: column;
+    grid-row: 4;
+    grid-column: 1/-1;
+  }
+  @media screen and (max-width: 700px) {
+    grid-column: 1/3;
+  }
+`;
+const BorderCountries = styled.div`
+  gap: 1rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  @media screen and (max-width: 570px) {
+    justify-content: center;
+  }
 `;
 
-function Country({ queryOption, setQueryOption, isLightMode }) {
+const BorderCountry = styled(Link)`
+  border: 1px solid
+    ${(props) =>
+      props.isLightMode ? "var(--dark-mode-bg)" : "var(--light-mode-bg)"};
+
+  padding: 0.25em 1.25em;
+  vertical-align: middle;
+  text-decoration: none;
+  color: inherit;
+`;
+
+const BorderTitle = styled.span``;
+function Country({ queryOption, setQueryOption }) {
   const { name } = useParams();
+  const { isLightMode } = useLightMode();
   const { isError, isLoading, data, error } = useQuery({
     queryKey: ["countries", name, queryOption],
     queryFn: () => getCountries("code", name),
@@ -153,7 +208,7 @@ function Country({ queryOption, setQueryOption, isLightMode }) {
   return (
     <>
       {isLoading && <LoadingScreen />}
-      <Container>
+      <Container justify={"space-between"} direction={"row"}>
         <BackButton onClick={goBack}>Go back</BackButton>
         <BackButton onClick={goToMenu}>Go ToMenu</BackButton>
       </Container>
@@ -161,58 +216,68 @@ function Country({ queryOption, setQueryOption, isLightMode }) {
       <Container>
         {data ? (
           data.map((country) => {
+            const [lat, lng] = country.latlng;
             return (
-              <CountryGrid key={country.flag.svg}>
-                <CountryImage src={country.flags.svg} alt={country.flags.alt} />
+              <>
+                <CountryGrid key={country.flag.svg}>
+                  <CountryImage
+                    src={country.flags.svg}
+                    alt={country.flags.alt}
+                  />
+                  <CountryInformationsContainer>
+                    <CountryInformations>
+                      <CountryName>{country.name.common}</CountryName>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
 
-                <CountryInformations>
-                  <CountryName>{country.name.common}</CountryName>
-                  <div
-                    style={{
-                      flex: "1",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      gap: "1rem",
-                    }}
-                  >
-                    <p>
-                      <span>Population:</span>
-                      {country.population}
-                    </p>
-                    <p>
-                      <span>Region:</span>
-                      {country.region}
-                    </p>
-                    <p>
-                      <span>Sub Region:</span>
-                      {country.subregion}
-                    </p>
-                    <p>
-                      <span>Capital:</span>
-                      {country.capital}
-                    </p>
-                  </div>
-                </CountryInformations>
-                <CountryInformations2>
-                  <div></div>
-                  <p>
-                    <span>Currencies: </span>
-                    {Object.values(country.currencies).map((value, index) => (
-                      <span key={index}>
-                        {value.name}
-                        {value.symbol}
-                      </span>
-                    ))}
-                  </p>
-                  <p>
-                    <span>Languages: </span>
-                    {Object.values(country.languages).map((language, index) => {
-                      return <span key={index}>{language}</span>;
-                    })}
-                  </p>
-                </CountryInformations2>
-                <div style={{ position: "relative" }}>
+                          gap: "1rem",
+                        }}
+                      >
+                        <CountryInformation>
+                          <span>Population:</span>
+                          {country.population}
+                        </CountryInformation>
+                        <CountryInformation>
+                          <span>Region:</span>
+                          {country.region}
+                        </CountryInformation>
+                        <CountryInformation>
+                          <span>Sub Region:</span>
+                          {country.subregion}
+                        </CountryInformation>
+                        <CountryInformation>
+                          <span>Capital:</span>
+                          {country.capital}
+                        </CountryInformation>
+                      </div>
+                    </CountryInformations>
+
+                    <CountryInformations2>
+                      <div></div>
+                      <CountryInformation>
+                        <span>Currencies:</span>
+                        {Object.values(country.currencies).map(
+                          (value, index) => (
+                            <span key={index}>
+                              {value.name}
+                              {value.symbol}
+                            </span>
+                          )
+                        )}
+                      </CountryInformation>
+                      <CountryInformation>
+                        <span>Languages:</span>
+                        {Object.values(country.languages).map(
+                          (language, index) => {
+                            return <span key={index}>{language}</span>;
+                          }
+                        )}
+                      </CountryInformation>
+                    </CountryInformations2>
+                  </CountryInformationsContainer>
                   <BorderCountriesDiv>
                     {country.borders && (
                       <BorderTitle>Border Countries:</BorderTitle>
@@ -221,6 +286,7 @@ function Country({ queryOption, setQueryOption, isLightMode }) {
                       {country.borders &&
                         country.borders?.map((borderCountry, index) => (
                           <BorderCountry
+                            isLightMode={isLightMode}
                             onClick={() => setQueryOption("code")}
                             to={`/country/${borderCountry}`}
                             key={index}
@@ -229,14 +295,15 @@ function Country({ queryOption, setQueryOption, isLightMode }) {
                           </BorderCountry>
                         ))}
                     </BorderCountries>
-                  </BorderCountriesDiv>
-                </div>
-              </CountryGrid>
+                  </BorderCountriesDiv>{" "}
+                </CountryGrid>
+                <Map popup={country.name.common} position={[lat, lng]} />
+              </>
             );
           })
         ) : (
           <p>There was an error fetching the country</p>
-        )}
+        )}{" "}
       </Container>
     </>
   );

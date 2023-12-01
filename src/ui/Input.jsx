@@ -13,6 +13,10 @@ const Container = styled.div`
   align-items: center;
   margin-top: 2.25rem;
   color: inherit;
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+    gap: 2em;
+  }
 `;
 
 const SearchCountry = styled.input`
@@ -39,6 +43,10 @@ const SearchCountry = styled.input`
     color: ${(props) =>
       props.isLightMode ? "var(--light-mode-text)" : "white"};
   }
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 const FilterSelect = styled.select`
@@ -54,6 +62,10 @@ const FilterSelect = styled.select`
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
   font-family: inherit;
   cursor: pointer;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 const FilterOption = styled.option`

@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
 const StyledLayout = styled.div``;
 
 function Layout({ children }) {
-  const [isLightMode, setIsLightMode] = useState(true);
+  const [isLightMode, setIsLightMode] = useState(false);
 
   function handleLightMode() {
     setIsLightMode((prevMode) => !prevMode);
