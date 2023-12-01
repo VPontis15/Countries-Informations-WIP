@@ -6,7 +6,6 @@ const StyledMapContainer = styled(MapContainer)`
   width: 100%;
   margin-bottom: 8rem;
   @media screen and (max-width: 1100px) {
-    margin-top: 4em;
   }
 `;
 

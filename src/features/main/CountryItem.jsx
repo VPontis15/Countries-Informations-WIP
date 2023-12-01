@@ -10,7 +10,8 @@ const StyledCountry = styled(Link)`
   margin-inline: auto;
   min-height: 300px;
   max-height: 400px;
-  max-width: 400px;
+  min-width: 350px;
+  max-width: 350px;
   text-decoration: none;
   color: inherit;
 
@@ -32,9 +33,9 @@ const CountryImage = styled.img`
   display: block;
   max-width: 100%;
   height: 200px;
-  max-height: 300px;
+  max-width: 350px;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   overflow: hidden;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;

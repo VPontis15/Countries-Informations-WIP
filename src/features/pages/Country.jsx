@@ -9,7 +9,7 @@ import { useLightMode } from "../layout/Layout";
 
 const Container = styled.div`
   width: 100%;
-  max-width: min(95%, 1440px);
+  max-width: min(90%, 1440px);
   display: flex;
   flex-direction: ${(props) => props.direction || "column"};
   margin-top: 2.25em;
@@ -20,7 +20,7 @@ const Container = styled.div`
   @media screen and (max-width: 700px) {
     flex-direction: column;
     gap: 2em;
-
+    align-items: center;
     /* align-items: center; */
   }
 `;
@@ -80,6 +80,7 @@ const CountryInformationsContainer = styled.div`
     gap: 0;
   }
   @media screen and (max-width: 950px) {
+    display: flex;
     flex-direction: column;
     grid-column: 1/3;
     grid-row: 3;
@@ -148,18 +149,21 @@ const BorderCountriesDiv = styled.div`
   gap: 1.5rem;
   flex: 1;
   grid-row: 2/3;
+  margin-top: 4em;
   align-items: center;
 
   @media screen and (max-width: 1200px) {
     grid-row: 2;
     grid-column: 1/-1;
     flex-direction: column;
+    margin-top: 4em;
     gap: 1em;
   }
   @media screen and (max-width: 950px) {
     flex-direction: column;
     grid-row: 4;
     grid-column: 1/-1;
+    margin-top: 0;
   }
   @media screen and (max-width: 700px) {
     grid-column: 1/3;

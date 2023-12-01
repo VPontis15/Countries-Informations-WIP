@@ -3,6 +3,7 @@ import getCountries from "../../data/getCountries";
 import CountryItem from "./CountryItem";
 import styled from "styled-components";
 import LoadingScreen from "../../ui/LoadingScreen";
+import ErrorMessage from "../../ui/ErrorMessage";
 
 const MainContent = styled.main`
   margin-block: 5rem;
@@ -32,7 +33,12 @@ function Countries({ searchByRegion, searchByInput, queryOption = "all" }) {
   const searchQuery =
     queryOption === "name" ? searchByInput : searchByRegion || "";
 
-  const { isLoading, data, isError, error } = useQuery({
+  const {
+    isLoading,
+    data: countries,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["countries", queryOption, searchQuery],
     queryFn: () => getCountries(queryOption, searchQuery),
   });
@@ -41,10 +47,13 @@ function Countries({ searchByRegion, searchByInput, queryOption = "all" }) {
     <MainContent>
       <Container>
         <StyledCountries>
-          {data &&
-            data.map((country) => (
+          {countries ? (
+            countries.map((country) => (
               <CountryItem key={country.cca2} country={country} />
-            ))}
+            ))
+          ) : (
+            <ErrorMessage />
+          )}
         </StyledCountries>
       </Container>
     </MainContent>
