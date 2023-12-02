@@ -52,7 +52,6 @@ const SearchCountry = styled.input`
 const FilterSelect = styled.select`
   padding: 1em 2.5em 1em 1em;
   height: 50px;
-  width: 100%;
   outline: 1px solid
     ${(props) =>
       !props.isLightMode ? "var(--light-mode-bg)" : "var(--dark-mode-bg)"};
@@ -86,6 +85,16 @@ const ClearBtn = styled.button`
   transition: all 0.5s ease;
 `;
 
+const FilterDiv = styled.div`
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: 0.75em;
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+`;
+
 function Input({
   handleSearchByRegion,
   searchByRegion,
@@ -111,14 +120,7 @@ function Input({
         placeholder=" Search a country..."
         value={searchByInput}
       />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginLeft: "auto",
-          gap: ".75em",
-        }}
-      >
+      <FilterDiv>
         <FilterSelect
           isLightMode={isLightMode}
           value={searchByRegion}
@@ -135,7 +137,7 @@ function Input({
           <FilterOption value="oceania">Filter by Oceania</FilterOption>
         </FilterSelect>
         {searchByRegion && <ClearBtn onClick={handleClearBtn}>Clear</ClearBtn>}
-      </div>
+      </FilterDiv>
     </Container>
   );
 }
