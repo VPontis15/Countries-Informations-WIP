@@ -4,7 +4,9 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: 1px solid
+    ${(props) =>
+      props.isLightMode ? "var(--dark-mode-bg)" : "var(--light-mode-bg)"};
   padding-block: 1.25rem;
 `;
 
@@ -31,9 +33,8 @@ const Container = styled.div`
 `;
 
 function Header({ isLightMode, handleLightMode }) {
-  console.log(isLightMode);
   return (
-    <StyledHeader>
+    <StyledHeader isLightMode={isLightMode}>
       <Container>
         <HeaderTitle>Where in the World</HeaderTitle>
         <ButtonMode onClick={handleLightMode}>
