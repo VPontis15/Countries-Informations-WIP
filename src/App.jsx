@@ -28,7 +28,7 @@ function App() {
                 }
               />
               <Route
-                path=":region"
+                path="/:region"
                 element={
                   <Homepage
                     queryOption={queryOption}
@@ -37,7 +37,7 @@ function App() {
                 }
               />
               <Route
-                path="country/:name"
+                path="/country/:name"
                 element={
                   <Country
                     queryOption={queryOption}
