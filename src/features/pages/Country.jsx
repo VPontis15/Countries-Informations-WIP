@@ -205,6 +205,12 @@ function Country({ queryOption, setQueryOption }) {
     navigate("/");
   };
 
+  if (isLoading) return <LoadingScreen />;
+  if (error || isError)
+    return (
+      <ErrorMessage>There was an error while fetching the country</ErrorMessage>
+    );
+
   return (
     <>
       {isLoading && <LoadingScreen />}
