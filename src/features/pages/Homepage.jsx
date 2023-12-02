@@ -12,6 +12,8 @@ function Homepage({
   const [searchByRegion, setSearchByRegion] = useState("");
   const [searchByInput, setSearchByInput] = useState("");
 
+  console.log(searchByRegion);
+
   const handleSearchByRegion = (e) => {
     setQueryOption("region");
     setSearchByRegion(e.target.value);
@@ -26,7 +28,6 @@ function Homepage({
     setQueryOption("region");
   }
   if (searchByInput && !searchByRegion) {
-    setSearchByRegion("filter by region");
     setQueryOption("name");
   }
   if (!searchByInput && !searchByRegion) setQueryOption("all");

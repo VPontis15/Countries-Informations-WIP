@@ -126,7 +126,7 @@ function Input({
           value={searchByRegion}
           onChange={handleSearchByRegion}
         >
-          <FilterOption value={"Filter by Region"} disabled={searchByRegion}>
+          <FilterOption disabled={searchByRegion}>
             Filter by Region
           </FilterOption>
 
