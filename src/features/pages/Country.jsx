@@ -122,7 +122,9 @@ const CountryInformations2 = styled.article`
 
 const BackButton = styled.button`
   background: none;
-  border: 1px solid #e3e3e3;
+  border: 1px solid
+    ${(props) =>
+      props.isLightMode ? "var(--dark-mode-bg)" : "var(--light-mode-bg)"};
   padding: 1em 2.25em;
   cursor: pointer;
   min-width: 125px;
@@ -207,8 +209,12 @@ function Country({ queryOption, setQueryOption }) {
     <>
       {isLoading && <LoadingScreen />}
       <Container justify={"space-between"} direction={"row"}>
-        <BackButton onClick={goBack}>Go back</BackButton>
-        <BackButton onClick={goToMenu}>Go ToMenu</BackButton>
+        <BackButton isLightMode={isLightMode} onClick={goBack}>
+          Go back
+        </BackButton>
+        <BackButton isLightMode={isLightMode} onClick={goToMenu}>
+          Go ToMenu
+        </BackButton>
       </Container>
 
       <Container>

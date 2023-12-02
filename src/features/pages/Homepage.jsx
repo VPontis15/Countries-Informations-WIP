@@ -15,15 +15,21 @@ function Homepage({
   console.log(searchByRegion);
 
   const handleSearchByRegion = (e) => {
-    setQueryOption("region");
-    setSearchByRegion(e.target.value);
-    setSearchByInput("");
+    if (searchByRegion === "filter") {
+      setQueryOption("all");
+      setSearchByRegion("all");
+    } else {
+      setQueryOption("region");
+      setSearchByRegion(e.target.value);
+      setSearchByInput("");
+    }
   };
   const handleSearchByInput = (e) => {
     setQueryOption("name");
     setSearchByInput(e.target.value);
   };
 
+  if (searchByRegion === "filter") setQueryOption("all");
   if (!searchByInput && searchByRegion) {
     setQueryOption("region");
   }

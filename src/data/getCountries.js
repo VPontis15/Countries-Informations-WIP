@@ -1,17 +1,32 @@
 async function getCountries(searchOption = "all", searchQuery = "") {
-  let FETCH_URL = `https://restcountries.com/v3.1/`;
+  const BASE_URL = "https://restcountries.com/v3.1/";
+  let fetchURL = BASE_URL;
+
   try {
-    if (searchOption === "all") FETCH_URL += "all";
-    if (searchOption === "code") FETCH_URL += `alpha?codes=${searchQuery}`;
-    if (searchOption === "region")
-      FETCH_URL += `${searchOption}/${searchQuery}`;
-    if (searchOption === "name") FETCH_URL += `${searchOption}/${searchQuery}`;
-    const res = await fetch(`${FETCH_URL}`);
+    switch (searchOption) {
+      case "code":
+        fetchURL += `alpha?codes=${searchQuery}`;
+        break;
+      case "all":
+        fetchURL += "all";
+        break;
+      case "region":
+        fetchURL += `region/${searchQuery}`;
+        break;
+      case "name":
+        fetchURL += `name/${searchQuery}`;
+        break;
+      default:
+        fetchURL += "all";
+        break;
+    }
+
+    const res = await fetch(fetchURL);
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }
-    const data = await res.json();
 
+    const data = await res.json();
     return data;
   } catch (error) {
     console.error(error.message);
