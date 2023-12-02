@@ -23,15 +23,7 @@ function App() {
                 />
               }
             />
-            <Route
-              path="/:region"
-              element={
-                <Homepage
-                  queryOption={queryOption}
-                  setQueryOption={setQueryOption}
-                />
-              }
-            />
+
             <Route
               path="/country/:name"
               element={
