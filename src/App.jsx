@@ -15,8 +15,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <>
-        <Layout>
-          <BrowserRouter>
+        <BrowserRouter>
+          <Layout>
             <Routes>
               <Route
                 index
@@ -46,8 +46,8 @@ function App() {
                 }
               />
             </Routes>
-          </BrowserRouter>
-        </Layout>
+          </Layout>
+        </BrowserRouter>
       </>
     </QueryClientProvider>
   );
