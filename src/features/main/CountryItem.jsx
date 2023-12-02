@@ -10,8 +10,7 @@ const StyledCountry = styled(Link)`
   margin-inline: auto;
   min-height: 300px;
   max-height: 400px;
-  min-width: 350px;
-  max-width: 350px;
+  width: 300px;
   text-decoration: none;
   color: inherit;
 

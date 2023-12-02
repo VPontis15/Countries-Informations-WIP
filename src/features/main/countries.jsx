@@ -11,10 +11,10 @@ const MainContent = styled.main`
 
 const Container = styled.div`
   width: 100%;
-  max-width: min(85%, 1440px);
+  max-width: min(90%, 1440px);
   display: flex;
   margin-inline: auto;
-  padding-inline: 1em;
+
   justify-content: space-between;
 `;
 
