@@ -5,7 +5,7 @@ async function getCountries(searchOption = "all", searchQuery = "") {
     if (searchOption === "code") FETCH_URL += `alpha?codes=${searchQuery}`;
     if (searchOption === "region")
       FETCH_URL += `${searchOption}/${searchQuery}`;
-    if (searchOption === "name") FETCH_URL += `country/${searchQuery}`; // Change this line
+    if (searchOption === "name") FETCH_URL += `${searchOption}/${searchQuery}`;
     const res = await fetch(`${FETCH_URL}`);
     if (!res.ok) {
       throw new Error("Failed to fetch data");
