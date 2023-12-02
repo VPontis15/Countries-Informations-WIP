@@ -52,6 +52,7 @@ const SearchCountry = styled.input`
 const FilterSelect = styled.select`
   padding: 1em 2.5em 1em 1em;
   height: 50px;
+  width: 100%;
   outline: 1px solid
     ${(props) =>
       !props.isLightMode ? "var(--light-mode-bg)" : "var(--dark-mode-bg)"};
