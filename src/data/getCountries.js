@@ -1,5 +1,5 @@
 async function getCountries(searchOption = "all", searchQuery = "") {
-  let FETCH_URL = `https://react-countries-statistics.onrender.com//restcountries.com/v3.1/`;
+  let FETCH_URL = `https://restcountries.com/v3.1/`;
   try {
     if (searchOption === "all") FETCH_URL += "all";
     if (searchOption === "code") FETCH_URL += `alpha?codes=${searchQuery}`;
