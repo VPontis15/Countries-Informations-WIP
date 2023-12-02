@@ -7,6 +7,7 @@ import Homepage from "./features/pages/Homepage";
 
 import Country from "./features/pages/Country";
 import { useState } from "react";
+import ErrorMessage from "./ui/ErrorMessage";
 
 function App() {
   const queryClient = new QueryClient();
@@ -45,6 +46,7 @@ function App() {
                   />
                 }
               />
+              <Route path="/*" element={<ErrorMessage />} />
             </Routes>
           </Layout>
         </HashRouter>
