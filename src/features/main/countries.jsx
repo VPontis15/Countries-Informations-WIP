@@ -37,13 +37,14 @@ function Countries({ searchByRegion, searchByInput, queryOption = "all" }) {
     isLoading,
     data: countries,
     isError,
-
+    refetch,
     error,
   } = useQuery({
     queryKey: ["countries", queryOption, searchQuery],
     queryFn: () => getCountries(queryOption, searchQuery),
     onError: (error) => console.error("error is", error),
   });
+
   if (isLoading) return <LoadingScreen />;
   return (
     <MainContent>

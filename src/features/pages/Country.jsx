@@ -8,6 +8,7 @@ import Map from "../../ui/Map";
 import { useLightMode } from "../layout/Layout";
 import ErrorMessage from "../../ui/ErrorMessage";
 import BorderCountry from "../../ui/BorderCountry";
+import { useEffect } from "react";
 
 const Container = styled.div`
   width: 100%;
@@ -187,7 +188,7 @@ const BorderTitle = styled.span``;
 function Country({ queryOption, setQueryOption }) {
   const { name } = useParams();
   const { isLightMode } = useLightMode();
-  const { isError, isLoading, data, error } = useQuery({
+  const { isError, isLoading, data, refetch, error } = useQuery({
     queryKey: ["countries", name, queryOption],
     queryFn: () => getCountries("code", name),
   });
@@ -201,6 +202,13 @@ function Country({ queryOption, setQueryOption }) {
     setQueryOption("all");
     navigate("/");
   };
+
+  useEffect(
+    function () {
+      refetch();
+    },
+    [name, refetch]
+  );
 
   return (
     <>
