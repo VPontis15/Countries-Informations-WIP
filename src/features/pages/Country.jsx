@@ -7,6 +7,7 @@ import LoadingScreen from "../../ui/LoadingScreen";
 import Map from "../../ui/Map";
 import { useLightMode } from "../layout/Layout";
 import ErrorMessage from "../../ui/ErrorMessage";
+import BorderCountry from "../../ui/BorderCountry";
 
 const Container = styled.div`
   width: 100%;
@@ -182,17 +183,6 @@ const BorderCountries = styled.div`
   }
 `;
 
-const BorderCountry = styled(Link)`
-  border: 1px solid
-    ${(props) =>
-      props.isLightMode ? "var(--dark-mode-bg)" : "var(--light-mode-bg)"};
-
-  padding: 0.25em 1.25em;
-  vertical-align: middle;
-  text-decoration: none;
-  color: inherit;
-`;
-
 const BorderTitle = styled.span``;
 function Country({ queryOption, setQueryOption }) {
   const { name } = useParams();
@@ -225,8 +215,8 @@ function Country({ queryOption, setQueryOption }) {
           ? data.map((country) => {
               const [lat, lng] = country.latlng;
               return (
-                <>
-                  <CountryGrid key={country.flag.svg}>
+                <div key={country.cca2}>
+                  <CountryGrid>
                     <CountryImage
                       src={country.flags.svg}
                       alt={country.flags.alt}
@@ -296,9 +286,9 @@ function Country({ queryOption, setQueryOption }) {
                           country.borders?.map((borderCountry, index) => (
                             <BorderCountry
                               isLightMode={isLightMode}
-                              onClick={() => setQueryOption("code")}
-                              to={`/country/${borderCountry}`}
+                              handleOnClick={() => setQueryOption("code")}
                               key={index}
+                              country={borderCountry}
                             >
                               {borderCountry}
                             </BorderCountry>
@@ -307,7 +297,7 @@ function Country({ queryOption, setQueryOption }) {
                     </BorderCountriesDiv>{" "}
                   </CountryGrid>
                   <Map popup={country.name.common} position={[lat, lng]} />
-                </>
+                </div>
               );
             })
           : (error && <LoadingScreen />) ||

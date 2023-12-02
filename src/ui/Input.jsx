@@ -110,13 +110,20 @@ function Input({
         placeholder=" Search a country..."
         value={searchByInput}
       />
-      <div style={{ display: "flex", gap: ".75em", width: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginLeft: "auto",
+          gap: ".75em",
+        }}
+      >
         <FilterSelect
           isLightMode={isLightMode}
           value={searchByRegion}
           onChange={handleSearchByRegion}
         >
-          <FilterOption value={"Filter by Region"}>
+          <FilterOption value={"Filter by Region"} disabled={searchByRegion}>
             Filter by Region
           </FilterOption>
 
