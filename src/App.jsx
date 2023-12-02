@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 import Layout from "./features/layout/Layout";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./features/pages/Homepage";
 
 import Country from "./features/pages/Country";
@@ -15,7 +15,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <>
-        <BrowserRouter>
+        <HashRouter>
           <Layout>
             <Routes>
               <Route
@@ -37,7 +37,7 @@ function App() {
                 }
               />
               <Route
-                path="/country/:name"
+                path="/#/country/:name"
                 element={
                   <Country
                     queryOption={queryOption}
@@ -47,7 +47,7 @@ function App() {
               />
             </Routes>
           </Layout>
-        </BrowserRouter>
+        </HashRouter>
       </>
     </QueryClientProvider>
   );
