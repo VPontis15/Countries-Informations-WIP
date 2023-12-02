@@ -15,6 +15,7 @@ function Homepage({
   const handleSearchByRegion = (e) => {
     setQueryOption("region");
     setSearchByRegion(e.target.value);
+    setSearchByInput("");
   };
   const handleSearchByInput = (e) => {
     setQueryOption("name");
@@ -23,17 +24,24 @@ function Homepage({
 
   if (!searchByInput && searchByRegion) {
     setQueryOption("region");
-  } else if (searchByInput && !searchByRegion) setQueryOption("name");
+  }
+  if (searchByInput && !searchByRegion) {
+    setSearchByRegion("filter by region");
+    setQueryOption("name");
+  }
+  if (!searchByInput && !searchByRegion) setQueryOption("all");
 
   return (
     <>
       <Input
+        setQueryOption={setQueryOption}
         searchByInput={searchByInput}
         handleSearchByInput={handleSearchByInput}
         searchByRegion={searchByRegion}
         handleSearchByRegion={handleSearchByRegion}
         queryOption={queryOption}
-        setQueryOption={setQueryOption}
+        setSearchByInput={setSearchByInput}
+        setSearchByRegion={setSearchByRegion}
       />
       <Countries
         searchByInput={searchByInput}

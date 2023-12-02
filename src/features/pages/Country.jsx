@@ -266,18 +266,20 @@ function Country({ queryOption, setQueryOption }) {
                         <div></div>
                         <CountryInformation>
                           <span>Currencies:</span>
-                          {Object.values(country.currencies).map(
-                            (value, index) => (
-                              <span key={index}>
-                                {value.name}
-                                {value.symbol}
-                              </span>
-                            )
-                          )}
+                          {country &&
+                            country.currencies &&
+                            Object.values(country?.currencies).map(
+                              (value, index) => (
+                                <span key={index}>
+                                  {value.name}
+                                  {value.symbol}
+                                </span>
+                              )
+                            )}
                         </CountryInformation>
                         <CountryInformation>
                           <span>Languages:</span>
-                          {Object.values(country.languages).map(
+                          {Object.values(country?.languages).map(
                             (language, index) => {
                               return <span key={index}>{language}</span>;
                             }

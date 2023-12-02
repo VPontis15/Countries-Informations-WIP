@@ -76,13 +76,31 @@ const FilterOption = styled.option`
   cursor: pointer;
 `;
 
+const ClearBtn = styled.button`
+  background: none;
+  border: none;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.5s ease;
+`;
+
 function Input({
   handleSearchByRegion,
   searchByRegion,
   searchByInput,
   handleSearchByInput,
+  setQueryOption,
+  setSearchByInput,
+  setSearchByRegion,
 }) {
   const { isLightMode } = useLightMode();
+
+  function handleClearBtn() {
+    setSearchByInput("");
+    setQueryOption("all");
+    setSearchByRegion("");
+  }
   return (
     <Container>
       <SearchCountry
@@ -90,20 +108,26 @@ function Input({
         onChange={(e) => handleSearchByInput(e)}
         type="text"
         placeholder=" Search a country..."
+        value={searchByInput}
       />
-      <FilterSelect
-        isLightMode={isLightMode}
-        value={searchByRegion}
-        onChange={handleSearchByRegion}
-      >
-        <FilterOption disabled={searchByRegion}>Filter by Region</FilterOption>
+      <div style={{ display: "flex", gap: ".75em", width: "100%" }}>
+        <FilterSelect
+          isLightMode={isLightMode}
+          value={searchByRegion}
+          onChange={handleSearchByRegion}
+        >
+          <FilterOption value={"Filter by Region"}>
+            Filter by Region
+          </FilterOption>
 
-        <FilterOption value="africa">Filter by Africa</FilterOption>
-        <FilterOption value="america">Filter by America</FilterOption>
-        <FilterOption value="asia">Filter by Asia</FilterOption>
-        <FilterOption value="europe">Filter by Europe</FilterOption>
-        <FilterOption value="oceania">Filter by Oceania</FilterOption>
-      </FilterSelect>
+          <FilterOption value="africa">Filter by Africa</FilterOption>
+          <FilterOption value="america">Filter by America</FilterOption>
+          <FilterOption value="asia">Filter by Asia</FilterOption>
+          <FilterOption value="europe">Filter by Europe</FilterOption>
+          <FilterOption value="oceania">Filter by Oceania</FilterOption>
+        </FilterSelect>
+        {searchByRegion && <ClearBtn onClick={handleClearBtn}>Clear</ClearBtn>}
+      </div>
     </Container>
   );
 }
