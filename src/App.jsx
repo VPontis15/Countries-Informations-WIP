@@ -1,13 +1,9 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-
 import Layout from "./features/layout/Layout";
-
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom"; // Import HashRouter
 import Homepage from "./features/pages/Homepage";
-
 import Country from "./features/pages/Country";
 import { useState } from "react";
-import ErrorMessage from "./ui/ErrorMessage";
 
 function App() {
   const queryClient = new QueryClient();
@@ -17,6 +13,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <>
         <HashRouter>
+          {" "}
+          {/* Use HashRouter instead of BrowserRouter */}
           <Layout>
             <Routes>
               <Route
@@ -38,7 +36,7 @@ function App() {
                 }
               />
               <Route
-                path="/#/country/:name"
+                path="/country/:name"
                 element={
                   <Country
                     queryOption={queryOption}
@@ -46,7 +44,6 @@ function App() {
                   />
                 }
               />
-              <Route path="/*" element={<ErrorMessage />} />
             </Routes>
           </Layout>
         </HashRouter>
