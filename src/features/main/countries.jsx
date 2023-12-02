@@ -45,7 +45,7 @@ function Countries({ searchByRegion, searchByInput, queryOption = "all" }) {
     onError: (error) => console.error("error is", error),
   });
 
-  if (isLoading) return <LoadingScreen />;
+  if (isLoading && !searchByInput) return <LoadingScreen />;
   return (
     <MainContent>
       <Container>
