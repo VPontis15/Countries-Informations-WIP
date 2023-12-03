@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import getCountries from "../../data/getCountries";
-import CountryItem from "../main/CountryItem";
+import { numberFormatter } from "../../util/helperFunctions";
 import LoadingScreen from "../../ui/LoadingScreen";
 import Map from "../../ui/Map";
 import { useLightMode } from "../layout/Layout";
@@ -248,7 +248,7 @@ function Country({ queryOption, setQueryOption }) {
                         >
                           <CountryInformation>
                             <span>Population:</span>
-                            {country.population}
+                            {numberFormatter(country.population)}
                           </CountryInformation>
                           <CountryInformation>
                             <span>Region:</span>

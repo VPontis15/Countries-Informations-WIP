@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useLightMode } from "../layout/Layout";
+import { numberFormatter } from "../../util/helperFunctions";
 
 const StyledCountry = styled(Link)`
   display: flex;
@@ -63,7 +64,8 @@ function CountryItem({ country }) {
       <CountryName>{country.name.common}</CountryName>
       <CountryDetails>
         <CountryLabel>
-          Population: <CountryValue> {country.population}</CountryValue>
+          Population:{" "}
+          <CountryValue>{numberFormatter(country.population)}</CountryValue>
         </CountryLabel>
         <CountryLabel>
           Region: <CountryValue> {country.region}</CountryValue>
