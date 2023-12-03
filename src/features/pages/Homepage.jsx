@@ -11,13 +11,14 @@ function Homepage({
 }) {
   const [searchByRegion, setSearchByRegion] = useState("");
   const [searchByInput, setSearchByInput] = useState("");
-
-  console.log(searchByRegion);
+  const navigate = useNavigate();
 
   const handleSearchByRegion = (e) => {
-    if (searchByRegion === "filter") {
+    if (e.target.value === "filter") {
+      navigate("/");
+      setSearchByInput("");
       setQueryOption("all");
-      setSearchByRegion("all");
+      setSearchByRegion("");
     } else {
       setQueryOption("region");
       setSearchByRegion(e.target.value);
