@@ -18,4 +18,3 @@ export function numberFormatter(number) {
 
   return formattedNum;
 }
-console.log(numberFormatter(988002));
