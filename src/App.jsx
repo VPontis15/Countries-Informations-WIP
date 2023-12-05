@@ -25,7 +25,7 @@ function App() {
             />
 
             <Route
-              path="/country/:name"
+              path="country/:name"
               element={
                 <Country
                   queryOption={queryOption}
