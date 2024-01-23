@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { useLightMode } from "../layout/Layout";
-import { numberFormatter } from "../../util/helperFunctions";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { useLightMode } from '../layout/Layout';
+import { numberFormatter } from '../../util/helperFunctions';
 
 const StyledCountry = styled(Link)`
   display: flex;
@@ -32,6 +32,7 @@ const CountryDetails = styled.div`
 const CountryImage = styled.img`
   display: block;
   max-width: 100%;
+  min-height: 200px;
   height: 200px;
   max-width: 350px;
   object-fit: cover;
@@ -64,14 +65,14 @@ function CountryItem({ country }) {
       <CountryName>{country.name.common}</CountryName>
       <CountryDetails>
         <CountryLabel>
-          Population:{" "}
+          Population:{' '}
           <CountryValue>{numberFormatter(country.population)}</CountryValue>
         </CountryLabel>
         <CountryLabel>
           Region: <CountryValue> {country.region}</CountryValue>
         </CountryLabel>
         <CountryLabel>
-          Capital: <CountryValue>{country.capital}</CountryValue>{" "}
+          Capital: <CountryValue>{country.capital}</CountryValue>{' '}
         </CountryLabel>
       </CountryDetails>
     </StyledCountry>

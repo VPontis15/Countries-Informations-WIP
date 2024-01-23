@@ -186,6 +186,7 @@ const BorderCountries = styled.div`
 `;
 
 const BorderTitle = styled.span``;
+
 function Country({ queryOption, setQueryOption }) {
   const params = useParams();
   const { name } = params;
